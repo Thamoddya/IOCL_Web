@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('lastName', 45)->nullable();
             $table->string('email', 45)->nullable();
             $table->string('mobile_no', 10)->nullable();
-            $table->string('password', 45)->nullable();
+            $table->string('password')->nullable();
             $table->text('remember_token')->nullable();
             $table->integer('password_reset_code')->nullable();
             $table->text('profile_pic_path')->nullable();
