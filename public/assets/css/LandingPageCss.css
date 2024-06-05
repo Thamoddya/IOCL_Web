@@ -1,0 +1,224 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap");
+:root {
+    --violet: hsl(257, 40%, 49%);
+    --soft-magenta: hsl(300, 69%, 71%);
+    --white: hsl(0, 0%, 100%);
+    --bg-mobile: url("data:image/svg+xml,%3Csvg width='375' height='373' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient x1='221.401%25' y1='-103.001%25' x2='-5.513%25' y2='110.015%25' id='a'%3E%3Cstop stop-color='%23FF52C1' offset='0%25'/%3E%3Cstop stop-color='%23F952C5' offset='7.3%25'/%3E%3Cstop stop-color='%239952FF' stop-opacity='0' offset='100%25'/%3E%3C/linearGradient%3E%3ClinearGradient x1='212.128%25' y1='-106.466%25' x2='-5.513%25' y2='110.015%25' id='b'%3E%3Cstop stop-color='%23FF52C1' offset='0%25'/%3E%3Cstop stop-color='%23F952C5' offset='0%25'/%3E%3Cstop stop-color='%239952FF' stop-opacity='0' offset='100%25'/%3E%3C/linearGradient%3E%3ClinearGradient x1='21.681%25' y1='5.006%25' x2='145.861%25' y2='145.591%25' id='c'%3E%3Cstop stop-color='%23FF52C1' offset='0%25'/%3E%3Cstop stop-color='%239952FF' offset='100%25'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath fill='url(%23a)' d='M0 265.7L319.689 0H375v73.607L0 313.664z'/%3E%3Cpath fill='url(%23b)' transform='matrix(-1 0 0 1 375 0)' d='M0 318.687L375 102v119.176L0 360.228z'/%3E%3Crect fill='url(%23c)' opacity='.558' transform='rotate(45 332.799 180.799)' x='318.799' y='166.799' width='28' height='28' rx='3'/%3E%3Crect fill='url(%23c)' opacity='.387' transform='rotate(45 122.364 366.364)' x='117.864' y='361.864' width='9' height='9' rx='1'/%3E%3Crect fill='url(%23c)' opacity='.387' transform='rotate(45 164.728 344.728)' x='155.728' y='335.728' width='18' height='18' rx='1'/%3E%3Crect fill='url(%23c)' opacity='.387' transform='rotate(45 139.728 86.9)' x='132.728' y='79.899' width='14' height='14' rx='1'/%3E%3Crect fill='url(%23c)' opacity='.387' transform='rotate(45 325.02 344.02)' x='316.521' y='335.521' width='17' height='17' rx='1'/%3E%3Crect fill='url(%23c)' opacity='.503' transform='rotate(45 63.598 282.497)' x='42.598' y='261.497' width='42' height='42' rx='3'/%3E%3C/g%3E%3C/svg%3E");
+    --bg-desktop: url("data:image/svg+xml,%3Csvg width='1318' height='800' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient x1='-45.25%25' y1='-88.077%25' x2='97.789%25' y2='100%25' id='a'%3E%3Cstop stop-color='%23FF52C1' offset='0%25'/%3E%3Cstop stop-color='%23F952C5' offset='4.09%25'/%3E%3Cstop stop-color='%239952FF' stop-opacity='0' offset='100%25'/%3E%3C/linearGradient%3E%3ClinearGradient x1='-64.06%25' y1='-121.906%25' x2='97.789%25' y2='100%25' id='b'%3E%3Cstop stop-color='%23FF52C1' offset='0%25'/%3E%3Cstop stop-color='%23F952C5' offset='4.09%25'/%3E%3Cstop stop-color='%239952FF' stop-opacity='0' offset='100%25'/%3E%3C/linearGradient%3E%3ClinearGradient x1='100%25' y1='111.373%25' x2='-24.893%25' y2='-55.159%25' id='c'%3E%3Cstop stop-color='%23FF52C1' offset='0%25'/%3E%3Cstop stop-color='%239952FF' offset='100%25'/%3E%3C/linearGradient%3E%3ClinearGradient x1='21.681%25' y1='5.006%25' x2='145.861%25' y2='145.591%25' id='d'%3E%3Cstop stop-color='%23FF52C1' offset='0%25'/%3E%3Cstop stop-color='%239952FF' offset='100%25'/%3E%3C/linearGradient%3E%3ClinearGradient x1='6.375%25' y1='-15.195%25' x2='91.754%25' y2='105.701%25' id='e'%3E%3Cstop stop-color='%23FF52C1' offset='0%25'/%3E%3Cstop stop-color='%239952FF' offset='100%25'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath fill='url(%23a)' transform='matrix(-1 0 0 1 834.817 0)' d='M0 0h409.224l425.593 376v156.83z'/%3E%3Cpath fill='url(%23b)' transform='rotate(180 528.65 584)' d='M0 367l641.153.138L1057.3 673.299V801z'/%3E%3Ccircle stroke='url(%23c)' stroke-width='17' cx='704' cy='563' r='49'/%3E%3Crect fill='url(%23d)' opacity='.558' transform='rotate(45 1107.87 708.87)' x='1088.87' y='689.87' width='38' height='38' rx='3'/%3E%3Crect fill='url(%23d)' opacity='.503' transform='rotate(45 1279.598 103.598)' x='1251.598' y='75.598' width='56' height='56' rx='3'/%3E%3Crect fill='url(%23d)' opacity='.558' transform='rotate(45 934.627 63.627)' x='918.627' y='47.627' width='32' height='32' rx='3'/%3E%3Crect fill='url(%23d)' opacity='.558' transform='rotate(45 703.627 186.627)' x='687.627' y='170.627' width='32' height='32' rx='3'/%3E%3Crect fill='url(%23d)' opacity='.387' transform='rotate(45 1237.02 606.02)' x='1228.521' y='597.521' width='17' height='17' rx='1'/%3E%3Cpath d='M91.477 739.477v-16.5a5 5 0 0 1 10 0v16.5h16.5a5 5 0 0 1 0 10h-16.5v16.5a5 5 0 1 1-10 0v-16.5h-16.5a5 5 0 1 1 0-10h16.5z' fill='url(%23e)' opacity='.211' transform='rotate(45 96.477 744.477)'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+body {
+    min-height: 100vh;
+    background: var(--violet) var(--bg-mobile) no-repeat;
+    background-size: 100% auto;
+    color: var(--white);
+    font-family: "Open Sans", sans-serif;
+    line-height: 1.5rem;
+    padding: 2.2rem 2.2rem 0;
+    display: flex;
+    flex-direction: column;
+    overflow: inherit;
+}
+@media (min-width: 62.0625rem) {
+    body {
+        background-image: var(--bg-desktop);
+        background-size: auto calc(100% - 4.5rem);
+    }
+}
+
+header svg {
+    width: clamp(8.125rem, 20vw, 10rem);
+    height: auto;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0rem 4vw;
+    margin: 0;
+}
+@media (min-width: 62.0625rem) {
+    main {
+        margin-bottom: 0;
+    }
+}
+@media (min-width: 35rem) and (max-width: 62.0625rem) {
+    main {
+        padding: 0 calc(21vw - 2.2rem) 0;
+    }
+}
+
+@media (min-width: 62.0625rem) {
+    .img-container {
+        width: 40%;
+    }
+}
+.img-container img {
+    width: 100%;
+}
+
+.text-container {
+    text-align: start;
+}
+@media (min-width: 62.0625rem) {
+    .text-container {
+        text-align: left;
+        flex: 22.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+.text-container h1 {
+    font-family: Poppins, sans-serif;
+    font-size: clamp(1.5rem, 3vw, 3rem);
+    line-height: 1.4em;
+}
+.text-container p {
+    margin: 1rem 0;
+}
+.text-container button {
+    color: var(--violet);
+    border: none;
+    padding: 1em;
+    width: 80%;
+    border-radius: 1.2rem;
+}
+.text-container button:hover {
+    background-color: var(--soft-magenta);
+    color: var(--white);
+}
+.text-container button:active {
+    transform: scale(0.9);
+}
+@media (min-width: 62.0625rem) {
+    .text-container button {
+        width: 30%;
+    }
+}
+
+address ul {
+    display: flex;
+    justify-content: center;
+    gap: 0.7rem;
+}
+@media (min-width: 62.0625rem) {
+    address ul {
+        justify-content: flex-end;
+    }
+}
+address a {
+    border: 1px solid var(--white);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    place-content: center;
+}
+address a:hover {
+    border: 1px solid var(--soft-magenta);
+}
+address a:hover > svg {
+    fill: var(--soft-magenta);
+}
+address svg {
+    display: block;
+    fill: var(--white);
+}
+address .facebook {
+    width: 0.6rem;
+}
+address .twitter,
+address .instagram {
+    width: 0.94rem;
+}
+
+footer {
+    background-color: rgba(232, 130, 232, 0.1);
+    font-size: 0.8rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 2.2rem 0;
+    padding: 0.3rem 4vw;
+    border-radius: 0.3rem;
+}
+footer p:first-of-type::after {
+    content: " ";
+    white-space: pre-wrap;
+}
+footer a {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 700;
+}
+footer a:hover {
+    color: rgba(255, 255, 255, 0.6);
+}
+footer a:active {
+    color: rgba(255, 255, 255, 0.8);
+}
+.dotOne {
+    transform-origin: center;
+    animation: wave 1s infinite;
+}
+
+@keyframes wave {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(10deg);
+    }
+}
+.dotTwo {
+    transform-origin: center;
+    animation: wave2 5s infinite;
+}
+
+@keyframes wave2 {
+    0%{
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(30deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+.dotGreen {
+    transform-origin: center;
+    animation: wave3 5s infinite;
+}
+
+@keyframes wave3 {
+    0%{
+        fill: #62e597;
+    }
+    50% {
+        fill: #085d2b;
+    }
+    100% {
+        fill: #c9f6c9;
+    }
+}
+.lampLight {
+    transform-origin: center;
+    animation: lampLight 5s infinite;
+}
+
+@keyframes lampLight {
+    0%{
+        fill: #facb17;
+    }
+    50% {
+        fill: #00ff67;
+    }
+    100% {
+        fill: #ffffff;
+    }
+}
