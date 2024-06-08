@@ -11,7 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     protected $table = 'users';
 
@@ -43,5 +43,14 @@ class User extends Authenticatable
     public function status()
     {
         return $this->belongsTo(Status::class, 'status_id', 'status_id');
+    }
+
+    public static function generateUniqueIoclId()
+    {
+        do {
+            $ioclId = 'IOCL' . str_pad(rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+        } while (self::where('iocl_id', $ioclId)->exists());
+
+        return $ioclId;
     }
 }

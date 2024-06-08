@@ -11,4 +11,16 @@ class PublicRouteController extends Controller
     {
         return view('Pages.Public.LandingPage');
     }
+    public function home()
+    {
+        return view('Pages.Public.HomePage');
+    }
+    public function login()
+    {
+        return view('Pages.Public.LoginPage');
+    }
+    public function register()
+    {
+        return view('Pages.Public.RegisterPage');
+    }
 }
