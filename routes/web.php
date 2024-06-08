@@ -14,9 +14,22 @@ Route::get('/login', 'App\Http\Controllers\Route\PublicRouteController@login')
 Route::get('/register', 'App\Http\Controllers\Route\PublicRouteController@register')
     ->name('register');
 
-Route::prefix('/auth')->group(function (){
+Route::prefix('/auth')->group(function () {
 
-    Route::post('/register-process','App\Http\Controllers\Auth\AuthController@register')
+    Route::post('/register-process', 'App\Http\Controllers\Auth\AuthController@register')
         ->name('auth.register');
+
+    Route::post('/login-process','App\Http\Controllers\Auth\AuthController@login')
+        ->name('auth.login');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::prefix('/student')->group(function () {
+        Route::get('/dashboard', 'App\Http\Controllers\Route\StudentRouteController@dashboard')
+            ->name('student.dashboard');
+    });
+    Route::middleware('role:Student')->group(function () {
+
+    });
 
 });

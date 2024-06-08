@@ -65,7 +65,8 @@
                                 <div class="mb-3">
                                     <label for="REG_Password" class="form-label text-white">Password</label>
                                     <input id="REG_Password" type="password" class="form-control rounded-0"
-                                           placeholder="Enter Your Password" name="REG_Password" required value="{{ old('REG_Password') }}">
+                                           placeholder="Enter Your Password" name="REG_Password" required
+                                           value="{{ old('REG_Password') }}">
                                     @if ($errors->has('REG_Password'))
                                         <div class="text-danger">{{ $errors->first('REG_Password') }}</div>
                                     @endif
@@ -76,7 +77,8 @@
                                     <label for="REG_ConfirmPassword" class="form-label text-white">Confirm
                                         Password</label>
                                     <input id="REG_ConfirmPassword" type="password" class="form-control rounded-0"
-                                           placeholder="Enter Your Password" name="REG_ConfirmPassword" required value="{{ old('REG_ConfirmPassword') }}">
+                                           placeholder="Enter Your Password" name="REG_ConfirmPassword" required
+                                           value="{{ old('REG_ConfirmPassword') }}">
                                     @if ($errors->has('REG_ConfirmPassword'))
                                         <div class="text-danger">{{ $errors->first('REG_ConfirmPassword') }}</div>
                                     @endif
@@ -103,19 +105,21 @@
         </div>
     </div>
 
-    <script>
-        //Swal if php session has success
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: '{{session('success')}}',
-        });
-        @endif(session('error'))
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: '{{session('error')}}',
-        });
-    </script>
+    @if(session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{session('success')}}',
+            });
+        </script>
+    @elseif(session('error'))
+       <script>
+           Swal.fire({
+               icon: 'error',
+               title: 'Error',
+               text: '{{session('error')}}',
+           });
+       </script>
+    @endif
 @endsection

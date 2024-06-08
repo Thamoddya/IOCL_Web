@@ -95,9 +95,10 @@
 </div>
 
 @yield('content')
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{asset('assets/scripts/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('assets/scripts/jquery.js')}}"></script>
 <script src="{{asset('assets/scripts/HomePage.js')}}"></script>
+<script src="{{asset('assets/scripts/script.js')}}"></script>
 </body>
 </html>
