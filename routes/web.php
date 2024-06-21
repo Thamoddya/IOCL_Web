@@ -24,12 +24,39 @@ Route::prefix('/auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::prefix('/student')->group(function () {
-        Route::get('/dashboard', 'App\Http\Controllers\Route\StudentRouteController@dashboard')
-            ->name('student.dashboard');
-    });
-    Route::middleware('role:Student')->group(function () {
 
+    Route::middleware('role:Student')->group(function () {
+        Route::prefix('/student')->group(function () {
+            Route::get('/dashboard', 'App\Http\Controllers\Route\StudentRouteController@dashboard')
+                ->name('student.dashboard');
+
+        });
+    });
+
+    Route::middleware('role:Admin')->group(function () {
+        Route::prefix('/admin')->group(function () {
+            Route::get('/dashboard', 'App\Http\Controllers\Route\AdminRouteController@dashboard')
+                ->name('admin.dashboard');
+            Route::get('/students', 'App\Http\Controllers\Route\AdminRouteController@students')
+                ->name('admin.students');
+            Route::get('/courses', 'App\Http\Controllers\Route\AdminRouteController@courses')
+                ->name('admin.courses');
+            Route::get('/course-videos', 'App\Http\Controllers\Route\AdminRouteController@courseVideos')
+                ->name('admin.course.videos');
+            Route::get('/add-course', 'App\Http\Controllers\Route\AdminRouteController@addCourse')
+                ->name('admin.add.course');
+            Route::get('/instructors', 'App\Http\Controllers\Route\AdminRouteController@instructors')
+                ->name('admin.instructors');
+            Route::get('/add-instructor', 'App\Http\Controllers\Route\AdminRouteController@addInstructor')
+                ->name('admin.add.instructor');
+            Route::get('/add-student', 'App\Http\Controllers\Route\AdminRouteController@addStudent')
+                ->name('admin.add.student');
+
+
+            Route::post('/store-course','App\Http\Controllers\CourseController@store')
+                ->name('courses.store');
+
+        });
     });
 
 });

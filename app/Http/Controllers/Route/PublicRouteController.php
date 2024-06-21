@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Route;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class PublicRouteController extends Controller
@@ -13,7 +14,11 @@ class PublicRouteController extends Controller
     }
     public function home()
     {
-        return view('Pages.Public.HomePage');
+        //Get Latest 4 courses
+        $courses = Course::orderBy('created_at', 'desc')
+            ->where('status_id', 1)
+            ->take(4)->get();
+        return view('Pages.Public.HomePage', compact('courses'));
     }
     public function login()
     {

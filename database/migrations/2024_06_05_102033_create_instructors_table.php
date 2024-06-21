@@ -13,11 +13,12 @@ return new class extends Migration
             $table->text('iocl_id')->nullable();
             $table->string('lecturers', 45)->nullable();
             $table->text('name')->nullable();
+            $table->text("img_path")->nullable();
             $table->text('bio')->nullable();
             $table->string('nic', 15)->nullable();
             $table->string('mobile', 10)->nullable();
             $table->string('email', 45)->nullable();
-            $table->unsignedBigInteger('status_id');
+            $table->unsignedBigInteger('status_id')->default(1);
             $table->timestamps();
 
             $table->foreign('status_id')

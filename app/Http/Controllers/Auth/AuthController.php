@@ -8,6 +8,7 @@ use App\Mail\StudentRegisterMail;
 use App\Models\User;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
@@ -25,14 +26,14 @@ class AuthController extends Controller
             'lastName' => $studentData['REG_LastName'],
             'email' => $studentData['REG_Email'],
             'mobile_no' => $studentData['REG_Mobile'],
-            'password' => bcrypt($studentData['REG_Password']),
+            'password' => Hash::make($studentData['REG_Password']),
             'status_id' => 1
         ]);
         $student->assignRole('Student');
         // Send email
         Mail::to($student->email)->send(new StudentRegisterMail($student));
 
-        return redirect()->route('login')->with('success', 'Registration successful');
+        return redirect()->back()->with('success', 'Registration successful');
 
     }
 
@@ -46,11 +47,13 @@ class AuthController extends Controller
             //Create PlainTextToken
             $token = auth()->user()->createToken('authToken')->plainTextToken;
             $student = auth()->user();
+            $roleName = $student->getRoleNames();
             return response()->json(
                 [
                     'attempt' => 'success',
                     'token' => $token,
-                    'student' => $student
+                    'student' => $student,
+                    'role'=> $roleName
                 ], 200);
         };
         return response()->json(['attempt' => 'failed']);

@@ -53,4 +53,16 @@ class User extends Authenticatable
 
         return $ioclId;
     }
+
+    public function studentDetails()
+    {
+        return $this->hasOne(StudentDetail::class, 'user_id', 'user_id');
+    }
+
+    // Check if the user is a student
+    public function isStudent()
+    {
+        return $this->hasRole('student');
+    }
+
 }

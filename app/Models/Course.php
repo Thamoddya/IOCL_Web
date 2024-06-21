@@ -24,6 +24,7 @@ class Course extends Model
         'status_id',
         'instructor_id',
         'category_id',
+        'image_path'
     ];
 
     public function status()
@@ -39,5 +40,26 @@ class Course extends Model
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'category_id');
+    }
+
+    //get  course Videos related to this course
+    public function videos()
+    {
+        return $this->hasMany(CourseVideo::class, 'course_id', 'course_id');
+    }
+    //Get Count Of Enrolled Students for this course
+    public function students()
+    {
+        return $this->belongsToMany(User::class, 'student_enrolled_courses', 'course_id', 'user_id');
+    }
+    //Get Course Material Count
+    public function courseMaterial()
+    {
+        return $this->hasMany(CourseMaterial::class, 'course_id', 'course_id');
+    }
+    //get course total earned price from transactions
+    public function totalEarned()
+    {
+        return $this->hasMany(Transaction::class, 'course_id', 'course_id');
     }
 }

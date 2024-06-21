@@ -14,6 +14,7 @@ return new class extends Migration
             $table->integer('student_count')->default(0)->nullable();
             $table->text('title')->nullable();
             $table->text('description')->nullable();
+            $table->text('image_path')->nullable();
             $table->double('price')->nullable();
             $table->double('total_price')->nullable();
             $table->date('expire_date')->nullable();

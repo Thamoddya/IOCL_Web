@@ -78,17 +78,19 @@
                                 timerProgressBar: true,
                                 didOpen: () => {
                                     Swal.showLoading();
-                                    const timer = Swal.getPopup().querySelector("b");
-                                    timerInterval = setInterval(() => {
-                                        timer.textContent = `${Swal.getTimerLeft()}`;
-                                    }, 100);
                                 },
                                 willClose: () => {
                                     clearInterval(timerInterval);
                                 }
                             }).then((result) => {
                                 if (result.dismiss === Swal.DismissReason.timer) {
-                                    window.location.href = '{{route('student.dashboard')}}';
+                                    if (response.role[0] == "Student") {
+                                        window.location.href = '{{route('student.dashboard')}}';
+                                    } else if (response.role[0] == "Admin") {
+                                        window.location.href = '{{route('admin.dashboard')}}';
+                                    } else {
+                                        swal("Error", "Invalid Role", "error")
+                                    }
                                 }
                             });
                         } else {
@@ -101,7 +103,6 @@
                     }
                 }
             };
-
             let data = JSON.stringify({
                 LOG_Email: email,
                 LOG_Password: password,
