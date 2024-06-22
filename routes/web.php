@@ -9,6 +9,8 @@ Route::get('/', 'App\Http\Controllers\Route\PublicRouteController@index')
 Route::get('/home', 'App\Http\Controllers\Route\PublicRouteController@home')
     ->name('home');
 
+Route::get('/course/{id}', 'App\Http\Controllers\Route\PublicRouteController@getCourse')->name('get.course');
+
 Route::get('/login', 'App\Http\Controllers\Route\PublicRouteController@login')
     ->name('login');
 Route::get('/register', 'App\Http\Controllers\Route\PublicRouteController@register')
@@ -59,4 +61,8 @@ Route::middleware('auth')->group(function () {
         });
     });
 
+    Route::get('/cart', [\App\Http\Controllers\CartController::class, 'index'])->name('cart.index');
+    Route::get('/cart/add/{id}', [\App\Http\Controllers\CartController::class, 'add'])->name('cart.add');
+    Route::post('/cart/remove', [\App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
+    Route::post('/checkout', [\App\Http\Controllers\CartController::class, 'checkout'])->name('cart.checkout');
 });

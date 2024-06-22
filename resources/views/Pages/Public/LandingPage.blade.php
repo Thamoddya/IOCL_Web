@@ -541,7 +541,7 @@
             Welcome TO IOCL Learning Management System. Here you can learn and grow your knowledge. Register now to get
             started.We are here to help you.
         </p>
-        <button>Register</button>
+        <button><a href="{{route("home")}}">Got To Home</a></button>
     </div>
 </main>
 

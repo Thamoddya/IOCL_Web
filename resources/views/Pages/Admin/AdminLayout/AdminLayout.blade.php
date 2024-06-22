@@ -76,9 +76,10 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-12">
-                            <video id="course-video" class="video-js vjs-fluid" controls preload="auto"
-                                   data-setup='{}'>
-                                <source src="" id="video-source" type="video/mp4">
+                            <video id="videoPlayer" class="video-js vjs-default-skin vjs-fluid" controls preload="auto"
+                                   width="640" height="264">
+                                <source id="videoSource" src="" type="video/mp4">
+                                Your browser does not support the video tag.
                             </video>
                         </div>
                     </div>
@@ -93,19 +94,40 @@
     </div>
 
     <!-- Modals -->
-    <div class="modal fade" id="VIEW_VIDEOMODAL" tabindex="-1" role="dialog">
+    <div class="modal fade" id="ADD_VIDEO_MODAL" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="defaultModalLabel">VIDEO</h4>
+                    <h4 class="modal-title" id="defaultModalLabel">Upload a Video to ID: <span id="loadCourseID"></span>
+                    </h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-12">
-                            <video id="course-video" class="video-js vjs-fluid" controls preload="auto"
-                                   data-setup='{}'>
-                                <source src="" id="video-source" type="video/mp4">
-                            </video>
+                                <input type="hidden" name="course_id" id="courseIDInput">
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" placeholder="Video Title" class="form-control" id="videoTitle" name="video_title">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" placeholder="Video Description" class="form-control" id="videoDescription" name="video_description">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="input-group mb-3">
+                                        <label for="inputGroupFile01" class="form-label">Choose Video</label>
+                                        <input type="file" class="form-control input-group col-cyan" name="videoFile"
+                                               accept=".mp4" id="videoFile">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-raised btn-primary" onclick="uploadCourseVideo();">Upload</button>
                         </div>
                     </div>
                 </div>
@@ -113,6 +135,7 @@
                     <button type="button" id="updModal_CloseBtn" class="btn btn-link waves-effect" data-dismiss="modal">
                         CLOSE
                     </button>
+
                 </div>
             </div>
         </div>
@@ -132,7 +155,8 @@
                         <div class="col-sm-12">
                             <div class="form-group form-float">
                                 <p class="form-label">Instructor ID : <span id="EDIT_InstructorId"></span></p>
-                 -           </div>
+                                -
+                            </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group form-float">

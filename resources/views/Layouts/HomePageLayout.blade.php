@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/HomePage.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap-icons.css')}}">
-
+    <script src="https://kit.fontawesome.com/3840ac106f.js" crossorigin="anonymous"></script>
     <style>
         @font-face {
             font-family: 'SF Pro Display';
@@ -19,11 +19,16 @@
             src: url('{{asset('assets/fonts/SFPRODISPLAYREGULAR.OTF')}}') format('woff2')
         }
     </style>
+
+    @if(Route::currentRouteName() == 'cart.index')
+        <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
+
+    @endif
 </head>
 <body style="background-color: #E8F6F3">
 <nav class="navbar navbar-expand-lg bg-transparent">
     <div class="container-fluid px-md-5">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{route('home')}}">
             <h3 class="text-primary fw-bold">IOCL</h3>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -43,7 +48,7 @@
             </form>
             <ul class="navbar-nav ms-auto d-flex justify-content-center align-items-start">
                 <li class="nav-item d-flex justify-content-center align-items-start">
-                    <a class="nav-link text-primary fw-medium" href="#">Home</a>
+                    <a class="nav-link text-primary fw-medium" href="{{route('home')}}">Home</a>
                 </li>
                 <li class="nav-item d-flex justify-content-center align-items-start">
                     <a class="nav-link text-primary fw-medium" href="#">Courses</a>
@@ -54,21 +59,29 @@
                 <li class="nav-item d-flex justify-content-center align-items-start">
                     <a class="nav-link text-primary fw-medium" href="#">Contact</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-primary fw-medium" href="{{route('login')}}">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-primary fw-medium" href="{{route('register')}}">Register</a>
-                </li>
-                {{--                <li class="nav-item d-flex justify-content-center align-items-start">--}}
-                {{--                    <button type="button" class="btn btn-primary rounded rounded-0">DASHBOARD</button>--}}
-                {{--                </li>--}}
-                {{--                <li class="nav-item d-flex justify-content-center align-items-start">--}}
-                {{--                    <button type="button" class="border border-0 bg-transparent" onclick="openDetailModal();">--}}
-                {{--                        <img style="width: 35px; height: 35px;" class="rounded-circle"--}}
-                {{--                             src="{{asset('assets/images/Icons/user.jpg')}}" alt="">--}}
-                {{--                    </button>--}}
-                {{--                </li>--}}
+                @if(auth()->user())
+                    <li class="nav-item d-flex justify-content-center align-items-start">
+                        <a class="nav-link text-primary fw-medium" href="{{route('cart.index')}}">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item d-none d-md-flex justify-content-center align-items-start">
+                        <button type="button" class="btn btn-primary rounded rounded-0">DASHBOARD</button>
+                    </li>
+                    <li class="nav-item d-none d-md-flex justify-content-center align-items-start">
+                        <button type="button" class="border border-0 bg-transparent" onclick="openDetailModal();">
+                            <img style="width: 35px; height: 35px;" class="rounded-circle"
+                                 src="{{asset('assets/images/Icons/user.jpg')}}" alt="">
+                        </button>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link text-primary fw-medium" href="{{route('login')}}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-primary fw-medium" href="{{route('register')}}">Register</a>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>
@@ -95,10 +108,44 @@
 </div>
 
 @yield('content')
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{asset('assets/scripts/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('assets/scripts/jquery.js')}}"></script>
 <script src="{{asset('assets/scripts/HomePage.js')}}"></script>
 <script src="{{asset('assets/scripts/script.js')}}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#search-course').on('keyup', function () {
+            var query = $(this).val();
+            if (query.length > 1) {
+                $.ajax({
+                    url: "{{ route('search.courses') }}",
+                    type: "GET",
+                    data: {'query': query},
+                    success: function (data) {
+                        $('#suggestion-box').html('');
+                        if (data.length > 0) {
+                            $.each(data, function (key, value) {
+                                $('#suggestion-box').append('<li class="list-group-item list-group-item-action" data-id="' + value.course_no + '">' + value.title + '</li>');
+                            });
+                        } else {
+                            $('#suggestion-box').html('<li class="list-group-item list-group-item-action">No results found</li>');
+                        }
+                    }
+                });
+            } else {
+                $('#suggestion-box').html('');
+            }
+        });
+
+        $(document).on('click', '#suggestion-box li', function () {
+            var courseId = $(this).data('course_no');
+            window.location.href = '/course/' + courseId;
+        });
+    });
+
+</script>
 </body>
 </html>

@@ -17,7 +17,9 @@ class PublicRouteController extends Controller
         //Get Latest 4 courses
         $courses = Course::orderBy('created_at', 'desc')
             ->where('status_id', 1)
-            ->take(4)->get();
+            ->where('expire_date', '>', now())
+            ->take(4)
+            ->get();
         return view('Pages.Public.HomePage', compact('courses'));
     }
     public function login()
@@ -27,5 +29,16 @@ class PublicRouteController extends Controller
     public function register()
     {
         return view('Pages.Public.RegisterPage');
+    }
+
+    public function getCourse($id)
+    {
+        $course = Course::where("course_no",$id)->first();
+
+        if(!$course){
+            return redirect()->route('home');
+        }
+
+        return view('Pages.Public.CourseDetails', compact('course'));
     }
 }

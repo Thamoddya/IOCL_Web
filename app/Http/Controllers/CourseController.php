@@ -118,4 +118,15 @@ class CourseController extends Controller
         }
         return response()->json(['message' => 'Course Not Found'], 200);
     }
+
+
+    public function search(Request $request)
+    {
+        $query = $request->get('query');
+        $courses = Course::where('title', 'LIKE', "%{$query}%")
+            ->orWhere('description', 'LIKE', "%{$query}%")
+            ->get();
+
+        return response()->json($courses);
+    }
 }

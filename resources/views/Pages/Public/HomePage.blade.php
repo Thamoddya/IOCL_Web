@@ -16,18 +16,18 @@
                             </div>
                             <div class="col-12">
                                 <p style="font-size: 1rem;color: #FFF;font-weight: 400;font-family:sans-serif;line-height: 1.2;">
-                                    We are here to help you to learn and grow. We provide you the best courses and the
-                                    best
+                                    We are here to help you to learn and grow. We provide you the best courses and the best
                                     teachers to help you to achieve your goals.
                                 </p>
                             </div>
                             <div class="col-12">
-                                <div class="row px-2">
+                                <div class="row px-2 position-relative">
                                     <div class="col-md-9 p-0 border border-0">
-                                        <input style="background-color: #E8F6F3" type="text"
+                                        <input id="search-course" style="background-color: #E8F6F3" type="text"
                                                class="rounded-0 w-100 form-control" placeholder="Search Course">
+                                        <ul id="suggestion-box" class="suggestion-box list-unstyled bg-white" ></ul>
                                     </div>
-                                    <div class=" col-md-3 p-0 border border-0">
+                                    <div class="col-md-3 p-0 border border-0">
                                         <select style="background-color: #E8F6F3" class="rounded-0 w-100 form-select">
                                             <option value="1">Search</option>
                                         </select>
@@ -159,10 +159,12 @@
                                                 <div class="col-12">
                                                     <div class="row">
                                                         <div class="col-12 mt-3">
-                                                            <p class="p-0 py-1 m-0"
-                                                               style="color: #0f5132;font-size: 1.2rem;font-weight: 700;font-family:'SF Pro Display' ">{{$course->title}}</p>
-                                                            <p class="p-0 py-1 m-0"
-                                                               style="color: #093B3B;font-size: 1rem;font-weight: 400;font-family:'SF Pro Display';line-height: 1">{{$course->description}}</p>
+                                                            <div class="col-12">
+                                                                <a href="{{route('get.course',$course->course_no)}}" class="p-0 py-1 m-0 text-decoration-none"
+                                                                   style="color: #0f5132;font-size: 1.2rem;font-weight: 700;font-family:'SF Pro Display' ">{{$course->title}}</a>
+                                                            </div>
+                                                            <a href="{{route('get.course',$course->course_no)}}" class="p-0 py-1 m-0 text-decoration-none"
+                                                               style="color: #093B3B;font-size: 1rem;font-weight: 400;font-family:'SF Pro Display';line-height: 1">{{Str::limit($course->description,40)}}</a>
                                                         </div>
                                                     </div>
                                                 </div>
