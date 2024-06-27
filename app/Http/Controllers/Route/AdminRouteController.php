@@ -11,64 +11,30 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class AdminRouteController extends Controller
-{
-
-    public function dashboard()
-    {
+class AdminRouteController extends Controller{
+    public function dashboard(){
         $admin = auth()->user();
-        $totalTransactionPriceSum = Transaction::where('created_at', '>=', now()->startOfMonth())
-            ->sum('total_paid');
+        $totalTransactionPriceSum = Transaction::where('created_at', '>=', now()->startOfMonth())->sum('total_paid');
         $getTotalStudentsCount = User::role('Student')->count();
-        $studentsCreatedThisMonth = User::role('Student')
-            ->where('created_at', '>=', Carbon::now()->startOfMonth())
-            ->count();
-
+        $studentsCreatedThisMonth = User::role('Student')->where('created_at', '>=', Carbon::now()->startOfMonth())->count();
         $getAllCourseCount = Course::count();
-        return view('Pages.Admin.Pages.AdminHome',compact([
-            'admin',
-            'totalTransactionPriceSum',
-            'getTotalStudentsCount',
-            'studentsCreatedThisMonth',
-            'getAllCourseCount'
-        ]));
-    }
-    public function students()
-    {
+        return view('Pages.Admin.Pages.AdminHome',compact(['admin', 'totalTransactionPriceSum','getTotalStudentsCount', 'studentsCreatedThisMonth', 'getAllCourseCount']));}
+    public function students(){
         $admin = auth()->user();
         $students = User::role('Student')->with('studentDetails')->get();
-        return view('Pages.Admin.Pages.AdminStudents',compact([
-            'admin',
-            'students'
-        ]));
-    }
-    public function courses()
-    {
+        return view('Pages.Admin.Pages.AdminStudents',compact(['admin', 'students']));}
+    public function courses(){
         $admin = auth()->user();
         $courses = Course::all();
-        return view('Pages.Admin.Pages.AdminCourses',compact([
-            'admin',
-            'courses'
-        ]));
-    }
-    public function courseVideos()
-    {
+        return view('Pages.Admin.Pages.AdminCourses',compact(['admin', 'courses']));}
+    public function courseVideos(){
         $admin = auth()->user();
         $courses = Course::all();
-        return view('Pages.Admin.Pages.AdminCourseVideos',compact([
-            'admin',
-            'courses'
-        ]));
-    }
-    public function instructors()
-    {
+        return view('Pages.Admin.Pages.AdminCourseVideos',compact(['admin', 'courses']));}
+    public function instructors(){
         $admin = auth()->user();
         $instructors = Instructor::all();
-        return view('Pages.Admin.Pages.AdminInstructors',compact([
-            'admin',
-            'instructors'
-        ]));
-    }
+        return view('Pages.Admin.Pages.AdminInstructors',compact(['admin', 'instructors']));}
     public function addInstructor()
     {
         $admin = auth()->user();

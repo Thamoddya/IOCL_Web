@@ -51,65 +51,43 @@
 
     <script>
         let timerInterval;
-
         function login() {
             let email = document.getElementById('email').value;
             let password = document.getElementById('password').value;
             let rememberMe = document.getElementById('rememberMe').checked;
             let token = '{{csrf_token()}}';
-
             let xhr = new XMLHttpRequest();
             xhr.open('POST', '{{route('auth.login')}}', true);
             xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
             xhr.setRequestHeader('X-CSRF-TOKEN', token);
-
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
                         let response = JSON.parse(xhr.responseText);
-
                         if (response.attempt == "success") {
                             setCookie('IOCL_ID', response.student.iocl_id, 30);
-
                             Swal.fire({
                                 title: `Login Success`,
                                 html: `Hello ${response.student.firstName} ${response.student.lastName}.You will redirect to your Dashboard in seconds.`,
                                 timer: 1300,
                                 timerProgressBar: true,
-                                didOpen: () => {
-                                    Swal.showLoading();
-                                },
-                                willClose: () => {
-                                    clearInterval(timerInterval);
-                                }
+                                didOpen: () => {Swal.showLoading();},
+                                willClose: () => {clearInterval(timerInterval);}
                             }).then((result) => {
                                 if (result.dismiss === Swal.DismissReason.timer) {
                                     if (response.role[0] == "Student") {
                                         window.location.href = '{{route('student.dashboard')}}';
                                     } else if (response.role[0] == "Admin") {
                                         window.location.href = '{{route('admin.dashboard')}}';
-                                    } else {
-                                        swal("Error", "Invalid Role", "error")
-                                    }
-                                }
+                                    } else {swal("Error", "Invalid Role", "error")}}
                             });
-                        } else {
-                            Swal.fire({
+                        } else {Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
                                 text: 'Invalid Credentials!',
-                            });
-                        }
-                    }
-                }
-            };
+                            });}}}};
             let data = JSON.stringify({
-                LOG_Email: email,
-                LOG_Password: password,
-                rememberMe: rememberMe,
-                _token: token
-            });
-
+                LOG_Email: email, LOG_Password: password, rememberMe: rememberMe, _token: token});
             xhr.send(data);
         }
     </script>

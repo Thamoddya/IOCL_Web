@@ -11,12 +11,7 @@ use function Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
-    {
-        // Create permissions
+    public function run(): void{
         $permissions = [
             'view courses',
             'buy courses',
@@ -42,42 +37,20 @@ class DatabaseSeeder extends Seeder
             'view activity logs',
             'manage activity logs',
         ];
-
-        foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
-        }
-
-        // Create roles
+        foreach ($permissions as $permission) {Permission::create(['name' => $permission]);}
         $adminRole = Role::create(['name' => 'Admin']);
         $studentRole = Role::create(['name' => 'Student']);
-
-        // Assign permissions to roles
         $adminRole->givePermissionTo(Permission::all());
-
-        $studentPermissions = [
-            'view courses',
-            'buy courses',
-            'enroll in courses',
-        ];
-
-        foreach ($studentPermissions as $permission) {
-            $studentRole->givePermissionTo($permission);
-        }
-
-
-        // Active status
+        $studentPermissions = ['view courses', 'buy courses', 'enroll in courses',];
+        foreach ($studentPermissions as $permission) {$studentRole->givePermissionTo($permission);}
         $Active = \App\Models\Status::create([
             'status_id' => '1',
             'type' => 'Active',
         ]);
-
-        // Deactivate status
         $deactive = \App\Models\Status::create([
             'status_id' => '2',
             'type' => 'Deactive',
         ]);
-
-        // Optionally, create a default admin and student user
         $admin = \App\Models\User::create([
             'iocl_id' => 'AD0001',
             'firstName' => 'Admin',

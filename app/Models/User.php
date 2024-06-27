@@ -14,7 +14,6 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     protected $table = 'users';
-
     protected $primaryKey = 'user_id';
     protected $fillable = [
         'iocl_id',
@@ -29,22 +28,9 @@ class User extends Authenticatable
         'login_attempt',
         'status_id',
     ];
-
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed'
-    ];
-
-    public function status()
-    {
-        return $this->belongsTo(Status::class, 'status_id', 'status_id');
-    }
-
+    protected $hidden = ['password', 'remember_token',];
+    protected $casts = ['email_verified_at' => 'datetime', 'password' => 'hashed'];
+    public function status(){return $this->belongsTo(Status::class, 'status_id', 'status_id');}
     public static function generateUniqueIoclId()
     {
         do {
@@ -63,6 +49,16 @@ class User extends Authenticatable
     public function isStudent()
     {
         return $this->hasRole('student');
+    }
+
+    // Get Enrolled COurses
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'student_enrolled_courses', 'user_id', 'course_id');
+    }
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'user_id', 'user_id');
     }
 
 }

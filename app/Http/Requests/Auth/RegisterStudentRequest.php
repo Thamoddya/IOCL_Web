@@ -4,15 +4,9 @@ namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterStudentRequest extends FormRequest
-{
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    public function rules(): array
-    {
+class RegisterStudentRequest extends FormRequest{
+    public function authorize(): bool{return true;}
+    public function rules(): array{
         return [
             "REG_FirstName" => "required|string",
             "REG_LastName" => "required|string",
@@ -21,11 +15,8 @@ class RegisterStudentRequest extends FormRequest
             "REG_Password" => "required|string|min:8",
             "REG_ConfirmPassword" => "required|string|same:REG_Password",
             "REG_Terms" => "required|accepted"
-        ];
-    }
-
-    public function messages(): array
-    {
+        ];}
+    public function messages(): array{
         return [
             "REG_FirstName.required" => "First name is required",
             "REG_LastName.required" => "Last name is required",

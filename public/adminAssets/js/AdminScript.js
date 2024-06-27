@@ -211,7 +211,6 @@ const DO_RegisterNewInstructor = () => {
         'profile_image',
         document.getElementById('inputGroupFile01').files[0]
     )
-
     $.ajax({
         url: `${BASE_URL}api/instructor/store`,
         type: 'POST',
@@ -257,8 +256,7 @@ const DO_RegisterNewInstructor = () => {
                 document.getElementById('error_name').innerText = errors.name[0]
             }
             if (errors.mobile) {
-                document.getElementById('error_mobile').innerText =
-                    errors.mobile[0]
+                document.getElementById('error_mobile').innerText =errors.mobile[0]
             }
             if (errors.email) {
                 document.getElementById('error_email').innerText =
@@ -328,14 +326,6 @@ const DO_ViewStudent = IOCL_ID => {
                 $('#STD_AddressLineThree').text('N/A')
                 $('#STD_City').text('N/A')
             }
-
-            // Uncomment and handle profile image if needed
-            // if (StudentData.profile_image) {
-            //     $("#VIEW_StudentImage").attr('src', `${BASE_URL}storage/${StudentData.profile_image}`);
-            // } else {
-            //     $("#VIEW_StudentImage").attr('src', 'path/to/default/image.jpg'); // Provide a default image path
-            // }
-
             $('#VIEWSTUDENTMODAL').modal().show()
             console.log(StudentData)
         },
@@ -419,8 +409,12 @@ function loadCourseDetails() {
 
             $('#loadButtons').html('')
             $('#loadButtons')
-                .html(`<button class="btn btn-raised btn-primary" onclick="addCourseVideo('${response.course.course_no}')">Add Videos</button>
-                 <button class="btn btn-raised btn-primary" onclick="loadCourseMaterials(${course_id})">Add Materials</button>`)
+                .html(`
+                 <button class="btn btn-raised btn-primary" onclick="addCourseVideo('${response.course.course_no}')">Add Videos</button>
+                 <button class="btn btn-raised btn-primary" onclick="loadCourseMaterials(${course_id})">Add Materials</button>
+                 <button class="btn btn-raised btn-primary" onclick="editCourseDetails(${course_id})">Edit</button>
+                `
+                )
 
             $('#courseInstructor').text(response.course.instructor.name)
             console.log(response.course.videos)
@@ -479,6 +473,77 @@ function loadCourseDetails() {
         }
     })
 }
+
+//Edit Course Details
+function editCourseDetails(course_id) {
+
+    $.ajax({
+        url: `${BASE_URL}api/getCourseDetails/${course_id}`,
+        type: 'POST',
+        success: function (response) {
+
+            $("#courseTitle").val(response.course.title);
+            $("#courseDescription").val(response.course.description)
+            $("#courseCategory").val(response.course.category_id)
+            $("#coursePrice").val(response.course.total_price)
+            $("#courseTotalPrice").val(response.course.total_price)
+            $('#EDIT_COURSEDETAILS').modal().show()
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })
+}
+
+//Update Course Details
+function updateCourseDetails() {
+
+    let course_id = $('#selectedCourseID').val()
+    let course_title = $('#courseTitle').val()
+    let course_description = $('#courseDescription').val()
+    let course_category = $('#courseCategory').val()
+    let course_price = $('#coursePrice').val()
+
+    $.ajax({
+        url: `${BASE_URL}api/updateCourseDetails`,
+        type: 'POST',
+        data: {
+            course_id: course_id,
+            course_title: course_title,
+            course_description: course_description,
+            course_category: course_category,
+            course_price: course_price
+        },
+        success: function (response) {
+            if (response.message == 'success') {
+                swal.fire({
+                    title: 'Done',
+                    text: 'Course Updated Successfully!',
+                    icon: 'success',
+                    buttons: false,
+                    timer: 1200
+                })
+                //response actions...
+                setTimeout(function () {
+                    $('#EDIT_COURSEDETAILS').modal().hide()
+                    loadCourseDetails()
+                }, 1500)
+            } else {
+                swal.fire({
+                    title: 'Error',
+                    text: response.message,
+                    icon: 'error',
+                    buttons: false,
+                    timer: 1200
+                })
+            }
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })
+}
+
 
 //Load Video
 function LOAD_VIDEO(video_url) {
@@ -582,4 +647,68 @@ function uploadCourseVideo() {
         }
     })
 
+}
+
+function loadCourseMaterials(course_id) {
+    $("#courseIDInput").val(course_id)
+    $('#ADD_MATERIALMODAL').modal().show()
+}
+
+function uploadCourseMaterial() {
+
+    var courseID = $("#courseIDInput").val();
+    var materialTitle = $("#materialTitle").val();
+    var materialYTLink = $("#materialYTLink").val();
+    var materialDoc = $("#materialDoc")[0].files[0];
+
+    var formData = new FormData();
+    formData.append('course_id', courseID);
+    formData.append('title', materialTitle);
+    formData.append('yt_link', materialYTLink);
+    formData.append('doc', materialDoc);
+
+    $.ajax({
+        url: `${BASE_URL}api/upload-material`,
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Ensure CSRF token is included for security
+        },
+        success: function (response) {
+            // // Handle success
+            // alert('Material uploaded successfully');
+            if (response.message == 'success') {
+                $('#ADD_MATERIALMODAL').modal('hide');
+                swal.fire({
+                        title: 'Done',
+                        text: 'Material Added Successfully!',
+                        icon: 'success',
+                        buttons: false,
+                        timer: 1200
+                    },
+                    setTimeout(function () {
+                        $('#materialTitle').val("");
+                        $('#materialYTLink').val("");
+                        $('#materialDoc').val("");
+                        loadCourseDetails();
+                    }, 1500));
+            } else {
+                swal.fire({
+                    title: 'Error',
+                    text: response.text,
+                    icon: 'error',
+                    buttons: false,
+                    timer: 1200
+                })
+            }
+
+        },
+        error: function (xhr, status, error) {
+            // Handle error
+            console.log('JS :- Failed to upload material');
+            console.log(xhr.responseText);
+        }
+    });
 }

@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id('transaction_id');
-            $table->text('transaction_no')->nullable();
+            $table->text('order_id')->nullable();
             $table->string('transactions', 45)->nullable();
             $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('payment_method_id');

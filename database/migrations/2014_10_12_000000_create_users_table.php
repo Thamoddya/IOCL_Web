@@ -23,7 +23,6 @@ return new class extends Migration
             $table->integer('login_attempt')->default(0);
             $table->unsignedBigInteger('status_id');
             $table->timestamps();
-
             $table->foreign('status_id')
                 ->references('status_id')
                 ->on('status')

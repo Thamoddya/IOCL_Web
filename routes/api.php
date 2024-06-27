@@ -13,3 +13,5 @@ Route::post('/course/stateChange', [\App\Http\Controllers\CourseController::clas
 Route::post('/getCourseDetails/{id}', [\App\Http\Controllers\CourseController::class, 'getCourseDetails'])->name('course.details');
 Route::post('/course/addVideo', [\App\Http\Controllers\CourseVideoController::class, 'upload'])->name('upload.video');
 Route::get('/search-courses', [\App\Http\Controllers\CourseController::class, 'search'])->name('search.courses');
+Route::post('/upload-material', [\App\Http\Controllers\CourseController::class, 'uploadMaterial'])->name('upload.material');
+Route::post('/updateCourseDetails', [\App\Http\Controllers\CourseController::class, 'updateCourseDetails'])->name('update.course');

@@ -16,10 +16,7 @@ class AuthController extends Controller
     public function register(RegisterStudentRequest $request)
     {
         $studentData = $request->validated();
-
-        //Generate IOCL ID
         $ioclId = User::generateUniqueIoclId();
-
         $student = User::create([
             'iocl_id' => $ioclId,
             'firstName' => $studentData['REG_FirstName'],
@@ -32,30 +29,23 @@ class AuthController extends Controller
         $student->assignRole('Student');
         // Send email
         Mail::to($student->email)->send(new StudentRegisterMail($student));
-
         return redirect()->back()->with('success', 'Registration successful');
-
     }
-
-    public function login(Request $request)
-    {
-
+    public function login(Request $request){
         $studentData = json_decode($request->getContent(), true);
-
         if (auth()->attempt(['email' => $studentData['LOG_Email'], 'password' => $studentData['LOG_Password']])) {
-
-            //Create PlainTextToken
             $token = auth()->user()->createToken('authToken')->plainTextToken;
             $student = auth()->user();
             $roleName = $student->getRoleNames();
             return response()->json(
-                [
-                    'attempt' => 'success',
-                    'token' => $token,
-                    'student' => $student,
-                    'role'=> $roleName
-                ], 200);
+                ['attempt' => 'success', 'token' => $token, 'student' => $student, 'role'=> $roleName], 200);
         };
         return response()->json(['attempt' => 'failed']);
+    }
+    public function logout(Request $request){
+        $request->user()->tokens()->delete();
+        //Remove all sessions and clean the project
+        auth()->logout();
+        return redirect()->route('login');
     }
 }

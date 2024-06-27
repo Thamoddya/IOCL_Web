@@ -20,10 +20,6 @@
         }
     </style>
 
-    @if(Route::currentRouteName() == 'cart.index')
-        <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
-
-    @endif
 </head>
 <body style="background-color: #E8F6F3">
 <nav class="navbar navbar-expand-lg bg-transparent">
@@ -51,7 +47,7 @@
                     <a class="nav-link text-primary fw-medium" href="{{route('home')}}">Home</a>
                 </li>
                 <li class="nav-item d-flex justify-content-center align-items-start">
-                    <a class="nav-link text-primary fw-medium" href="#">Courses</a>
+                    <a class="nav-link text-primary fw-medium" href="{{route('courses')}}">Courses</a>
                 </li>
                 <li class="nav-item d-flex justify-content-center align-items-start">
                     <a class="nav-link text-primary fw-medium" href="#">About</a>
@@ -100,7 +96,7 @@
                 ...
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Logout</button>
+                <a href="{{route('auth.logout')}}" class="btn btn-danger text-decoration-none">Logout</a>
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Done</button>
             </div>
         </div>
@@ -108,6 +104,7 @@
 </div>
 
 @yield('content')
+
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{asset('assets/scripts/bootstrap.bundle.min.js')}}"></script>
@@ -147,5 +144,8 @@
     });
 
 </script>
+@if(Route::currentRouteName() == 'cart.index')
+    <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
+@endif
 </body>
 </html>

@@ -94,6 +94,108 @@
     </div>
 
     <!-- Modals -->
+    <div class="modal fade" id="ADD_MATERIALMODAL" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="defaultModalLabel">Video Materials</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="hidden" id="courseIDInput">
+
+                            <div class="col-12">
+                                <div class="form-group form-float">
+                                    <label for="materialTitle" class="form-label ">Material Title</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="materialTitle"
+                                               name="material_title">
+                                    </div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <label for="materialTitle" class="form-label ">YT Link</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="materialYTLink"
+                                               name="material_title">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group mb-3">
+                                        <label for="inputGroupFile01" class="form-label">Material DOc</label>
+                                        <input type="file" class="form-control input-group col-cyan" id="materialDoc"
+                                               accept=".pdf">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="updModal_CloseBtn" class="btn btn-link waves-effect" data-dismiss="modal">
+                        CLOSE
+                    </button>
+                    <button type="submit" class="btn btn-raised btn-primary" onclick="uploadCourseMaterial();">
+                        Upload
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="EDIT_COURSEDETAILS" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="defaultModalLabel">Edit Course</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="hidden" id="EditCourseID">
+
+                            <div class="col-12">
+                                <div class="form-group form-float">
+                                    <label for="materialTitle" class="form-label ">Course Title</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="courseTitle">
+                                    </div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <label for="materialTitle" class="form-label ">Course Description</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="courseDescription">
+                                    </div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <label for="materialTitle" class="form-label ">Price</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="coursePrice">
+                                    </div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <label for="materialTitle" class="form-label ">Total Price</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" id="courseTotalPrice">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="updModal_CloseBtn" class="btn btn-link waves-effect" data-dismiss="modal">
+                        CLOSE
+                    </button>
+                    <button type="submit" class="btn btn-raised btn-primary" onclick="updateCourseDetails();">
+                        Upload
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
     <div class="modal fade" id="ADD_VIDEO_MODAL" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -104,30 +206,34 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-12">
-                                <input type="hidden" name="course_id" id="courseIDInput">
+                            <input type="hidden" name="course_id" id="courseIDInput">
 
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" placeholder="Video Title" class="form-control" id="videoTitle" name="video_title">
-                                        </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" placeholder="Video Title" class="form-control"
+                                               id="videoTitle" name="video_title">
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" placeholder="Video Description" class="form-control" id="videoDescription" name="video_description">
-                                        </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" placeholder="Video Description" class="form-control"
+                                               id="videoDescription" name="video_description">
                                     </div>
                                 </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <div class="input-group mb-3">
-                                        <label for="inputGroupFile01" class="form-label">Choose Video</label>
-                                        <input type="file" class="form-control input-group col-cyan" name="videoFile"
-                                               accept=".mp4" id="videoFile">
-                                    </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="input-group mb-3">
+                                    <label for="inputGroupFile01" class="form-label">Choose Video</label>
+                                    <input type="file" class="form-control input-group col-cyan" name="videoFile"
+                                           accept=".mp4" id="videoFile">
                                 </div>
-                                <button type="submit" class="btn btn-raised btn-primary" onclick="uploadCourseVideo();">Upload</button>
+                            </div>
+                            <button type="submit" class="btn btn-raised btn-primary" onclick="uploadCourseVideo();">
+                                Upload
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Course extends Model
 {
@@ -61,5 +62,23 @@ class Course extends Model
     public function totalEarned()
     {
         return $this->hasMany(Transaction::class, 'course_id', 'course_id');
+    }
+
+    /**
+     * @param int|null $userId
+     * @return bool
+     */
+    public function isEnrolledByUser($userId = null)
+    {
+        if (is_null($userId)) {
+            $userId = Auth::id();
+        }
+
+        return $this->enrollments()->where('user_id', $userId)->exists();
+    }
+
+    public function enrollments()
+    {
+        return $this->hasMany(StudentEnrolledCourse::class, 'course_id', 'course_id');
     }
 }

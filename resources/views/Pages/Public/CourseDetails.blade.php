@@ -34,56 +34,51 @@
                                     <sup class="text-primary"> {{$course->price - $course->total_price}} OFF</sup>
                                 </h3>
                                 <div class="col-12 p-2">
-                                    <a href="#" class="btn btn-primary text-white rounded-0">Enroll Now</a>
-                                    @if(auth()->user())
-                                        @php
-                                            $cart = session()->get('cart', []);
-                                            $inCart = array_key_exists($course->course_no, $cart);
-                                        @endphp
-                                        @if($inCart)
-                                            <button class="btn btn-secondary text-white rounded-0" disabled>Already in
-                                                Cart
-                                            </button>
-                                        @else
-                                            <a href="{{ route('cart.add', $course->course_no) }}"
-                                               class="btn btn-secondary text-white rounded-0">Add To Cart</a>
-                                        @endif
+                                    @if($course->is_enrolled)
+                                        <p>You are enrolled in this course.</p>
                                     @else
-                                        <a href="{{ route('login') }}" class="btn btn-secondary text-white rounded-0">Add
-                                            To Cart</a>
+                                        <a href="#" class="btn btn-primary text-white rounded-0">Enroll Now</a>
+                                        @if(auth()->user())
+                                            @php
+                                                $cart = session()->get('cart', []);
+                                                $inCart = array_key_exists($course->course_no, $cart);
+                                            @endphp
+                                            @if($inCart)
+                                                <button class="btn btn-secondary text-white rounded-0" disabled>Already
+                                                    in Cart
+                                                </button>
+                                            @else
+                                                <a href="{{ route('cart.add', $course->course_no) }}" class="btn btn-secondary text-white rounded-0">Add To Cart</a>
+                                            @endif
+                                        @else
+                                            <a href="{{ route('login') }}" class="btn btn-secondary text-white rounded-0">Add To Cart</a>
+                                        @endif
                                     @endif
                                 </div>
                                 <hr>
                                 <div class="p-2 col-6 d-flex gap-2 align-items-center">
                                     <i class="fa-solid fa-users text-primary"></i>
-                                    <h6 style="gap: 0;padding: 0;margin: 0"
-                                        class="text-primary"> {{$course->student_count}}
-                                        Enrolled</h6>
+                                    <h6 style="gap: 0;padding: 0;margin: 0" class="text-primary"> {{$course->student_count}}Enrolled</h6>
                                 </div>
                                 <div class="p-2 col-6 d-flex gap-2  align-items-center">
                                     <i class="fa-solid fa-user text-primary"></i>
-                                    <h6 style="gap: 0;padding: 0;margin: 0"
-                                        class="text-primary"> {{$course->instructor->name}}</h6>
+                                    <h6 style="gap: 0;padding: 0;margin: 0" class="text-primary"> {{$course->instructor->name}}</h6>
                                 </div>
                                 <div class="p-2 col-6 d-flex gap-2  align-items-center">
                                     <i class="fa-solid fa-clock text-primary"></i>
-                                    <h6 style="gap: 0;padding: 0;margin: 0"
-                                        class="text-primary"> {{$course->courseMaterial->count()}} Materials</h6>
+                                    <h6 style="gap: 0;padding: 0;margin: 0" class="text-primary"> {{$course->courseMaterial->count()}} Materials</h6>
                                 </div>
                                 <div class="p-2 col-6 d-flex gap-2  align-items-center">
                                     <i class="fa-solid fa-video text-primary"></i>
-                                    <h6 style="gap: 0;padding: 0;margin: 0"
-                                        class="text-primary"> {{$course->videos->count()}} Videos</h6>
+                                    <h6 style="gap: 0;padding: 0;margin: 0" class="text-primary"> {{$course->videos->count()}} Videos</h6>
                                 </div>
                                 <div class="p-2 col-6 d-flex gap-2  align-items-center">
                                     <i class="fa-solid fa-infinity text-primary"></i>
-                                    <h6 style="gap: 0;padding: 0;margin: 0"
-                                        class="text-primary"> Lifetime Access</h6>
+                                    <h6 style="gap: 0;padding: 0;margin: 0" class="text-primary"> Lifetime Access</h6>
                                 </div>
                                 <div class="p-2 col-6 d-flex gap-2  align-items-center">
                                     <i class="fa-solid fa-sign-language text-primary"></i>
-                                    <h6 style="gap: 0;padding: 0;margin: 0"
-                                        class="text-primary"> English</h6>
+                                    <h6 style="gap: 0;padding: 0;margin: 0" class="text-primary"> English</h6>
                                 </div>
                             </div>
                         </div>
@@ -96,7 +91,7 @@
                                 Curriculum</h4>
                         </div>
                         <div class="col-12 p-2">
-                            <div class="row">
+                            <div class="row p-3">
                                 @foreach($course->videos as $video)
                                     <div class="col-12 col-md-3 rounded-3 p-2"
                                          style="background-color: rgba(185,185,185,0.18)">

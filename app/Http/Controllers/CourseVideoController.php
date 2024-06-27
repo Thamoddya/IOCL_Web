@@ -19,7 +19,7 @@ class CourseVideoController extends Controller
         if ($request->file('video_file')) {
             // Handle the file upload
             $file = $request->file('video_file');
-            $path = 'course/videos/' . uniqid() . '_' . $file->getClientOriginalExtension();
+            $path = 'course/videos/' . uniqid() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('course/videos/'), $path);
 
             CourseVideo::create([
